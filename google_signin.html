@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sign-In</title>
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    function onSignIn(googleUser) {
+      var id_token = googleUser.getAuthResponse().id_token;
+      // Send the ID token back to Unity
+      window.location.href = "unitydl://id_token=" + id_token;
+    }
+
+    function renderButton() {
+      gapi.signin2.render('signin-button', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSignIn
+      });
+    }
+  </script>
+</head>
+<body onload="renderButton()">
+<div id="signin-button"></div>
+</body>
+</html>
